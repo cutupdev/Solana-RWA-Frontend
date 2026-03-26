@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0e12;
+  --foreground: #e6edf3;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.wallet-adapter-button {
+  @apply !rounded-lg !bg-accent !text-surface !font-medium;
+}
+
+.wallet-adapter-button:hover {
+  @apply !bg-accent-muted;
+}
+
+.wallet-adapter-modal-wrapper {
+  @apply !font-sans;
+}

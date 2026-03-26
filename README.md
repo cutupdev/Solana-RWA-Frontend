@@ -1,48 +1,59 @@
-# Solana Chess Casino Game
+# Solana RWA Frontend
 
-This is chess game on the Solana blockchain. As a play-to-earn game, I have implemented smart contract for security. Solana program was built by Anchor framework and UI is built by react.js. This is not full code, I have shared only UI and smart contract here. For full working website, feel free to reach out of me when you need supports[Telegram: https://t.me/DevCutup, Whatspp: https://wa.me/13137423660].
+A Next.js dashboard for **real-world asset (RWA) tokenization** on Solana: SPL tokens, NFT-style certificates, a trading workspace with charts, and a panel to build and send transactions to your on-chain program.
 
+## Features
 
+- **Wallet**: Solana Wallet Adapter (Phantom, Solflare, Backpack, etc.) with cluster switching.
+- **Tokenization**: Create SPL mints (devnet-friendly flow) and mint NFT metadata (Metaplex-style URI + collection fields in the UI; wire to your program or Token-2022 as needed).
+- **Trading**: Place mock limit/market-style orders in local state, Jupiter quote via same-origin API proxy (`/api/jupiter/quote`), and a price/volume chart (sample series).
+- **Smart contract**: Encode custom instruction data (hex or UTF-8), attach accounts with signer/writable flags, preview and sign with the connected wallet.
 
-## How to use it
+## Repository layout
 
-```bash
-git clone https://github.com/cutupdev/Solana-Chess-Casino-Game.git
-```
+| Path | Purpose |
+|------|---------|
+| `frontend/` | Next.js 14 (App Router), TypeScript, Tailwind CSS |
+| `.env.example` | Environment template (copy values into `frontend/.env.local`) |
 
-```bash
-cd ./Solana-Chess-Casino-Game
-```
+## Prerequisites
 
-```bash
-npm run install
-```
+- Node.js 18+
+- A Solana wallet with devnet SOL for testing
+- (Optional) Deployed RWA Anchor/native program and its program id
 
-- For smart contract deployment:
-```bash
-anchor build
-```
+## Setup
 
-```bash
-anchor deploy
-```
+1. Copy environment file:
 
-- To start UI
-```bash
-cd ./frontend
-```
+   ```bash
+   cp .env.example frontend/.env.local
+   ```
 
-```bash
-npm run install
-```
+   Edit `frontend/.env.local` and set `NEXT_PUBLIC_RWA_PROGRAM_ID` after deployment.
 
-```bash
-npm run start
-```
+2. Install and run (when you are ready on your machine):
 
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
+3. Open [http://localhost:3000](http://localhost:3000).
 
-### Contact Information
+## Security notes
+
+- Never commit `.env.local` or private keys.
+- Review every transaction in your wallet before signing.
+- Production should use a dedicated RPC provider and your own Jupiter / indexer endpoints if required.
+
+## Customizing on-chain integration
+
+- Replace placeholder instruction discriminators and account metas in `frontend/src/lib/solana/rwa-instructions.ts` with IDs from your IDL or program source.
+- Point `NEXT_PUBLIC_RWA_PROGRAM_ID` at your deployed program.
+- For production NFT/token standards, align forms with Metaplex Token Metadata, Token-2022 extensions, or your RWA registry program.
+
+## Contact Information
 - Telegram: https://t.me/DevCutup
-- Whatsapp: https://wa.me/13137423660
 - Twitter: https://x.com/devcutup
